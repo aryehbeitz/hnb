@@ -1,0 +1,12 @@
+# Build artifacts
+*.o
+*.a
+src/hnb
+src/hnb_p
+src/xml_debug
+# Generated during build
+src/init_subsystems.c
+src/hnbrc.inc
+src/cli_*.inc
+util/asc2c
+*~
