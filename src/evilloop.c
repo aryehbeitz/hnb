@@ -1,7 +1,7 @@
 /*
  * evilloop.c -- The event loop / heart of execution for hnb
  *
- * Copyright (C) 2001-2003 Øyvind Kolås <pippin@users.sourceforge.net>
+ * Copyright (C) 2001-2003 ï¿½yvind Kolï¿½s <pippin@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free
@@ -32,6 +32,7 @@
 #include "ui_cli.h"
 #include "cli.h"
 #include "evilloop.h"
+#include "autoreload.h"
 
 #include "util_string.h"
 
@@ -143,11 +144,21 @@ Node *evilloop (Node *pos)
 {
 	cli_outfun = set_status;
 
+	/* When auto-reload is on, give getch a 1s timeout so the loop keeps
+	   ticking while idle and can notice an externally changed file. */
+	if (prefs.autoreload)
+		timeout (1000);
+
 	while (!quit_hnb) {
 		Tbinding *binding;
+		int key;
 
+		autoreload_check (&pos);
 		ui_draw (pos, inputbuf, 0, 0);
-		binding = parsekey (ui_input (), ui_current_scope);
+		key = ui_input ();
+		if (key == ERR)			/* idle timeout tick, no key pressed */
+			continue;
+		binding = parsekey (key, ui_current_scope);
 		do {
 
 			switch (binding->action) {

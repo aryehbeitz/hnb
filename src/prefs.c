@@ -1,7 +1,7 @@
 /*
  * prefs.c -- preferences and global variable mangement of hnb
  *
- * Copyright (C) 2001,2003 Øyvind Kolås <pippin@users.sourceforge.net>
+ * Copyright (C) 2001,2003 ï¿½yvind Kolï¿½s <pippin@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free
@@ -40,7 +40,8 @@ Tprefs prefs = {
 	1,							/*showpercent */
 	0,							/*fixed focusbar */
 	0,							/*save position */
-	0					/*readonly */
+	0,							/*readonly */
+	1					/*autoreload */
 };
 
 typedef struct {
@@ -76,6 +77,8 @@ void init_prefs ()
 	cli_add_int ("fixedfocus", &prefs.fixedfocus, "");
 	cli_add_int ("savepos", &prefs.savepos, "");
 	cli_add_int ("readonly", &prefs.readonly, "");
+	cli_add_int ("autoreload", &prefs.autoreload,
+				 "re-read the notebook when it changes on disk (e.g. synced from another machine)");
 
 #ifdef NCURSES_VERSION 
 	cli_add_int ("escdelay", &ESCDELAY,

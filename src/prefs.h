@@ -16,6 +16,7 @@ typedef struct {
 	int fixedfocus;
 	int savepos;
 	int readonly;
+	int autoreload;
 } Tprefs;
 
 extern Tprefs prefs;

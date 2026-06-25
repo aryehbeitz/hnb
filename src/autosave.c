@@ -2,7 +2,7 @@
  * autosave.c -- the core of the autosave functionality
  *             
  *
- * Copyright (C) 2001,2003 Øyvind Kolås <pippin@users.sourceforge.net>
+ * Copyright (C) 2001,2003 ï¿½yvind Kolï¿½s <pippin@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free
@@ -31,6 +31,10 @@ static int autosave_threshold=0;   /* autosave for every autosave_threshold node
 static int autosave_timeout=50;    /* ticks to wait for autosaving, if there is nodes changed */
 static int autosave_timer=0;
 static int autosave_sync=1;
+/* Unlike nodes_changed (which clears on every autosave to db_file~), this only
+   clears on an explicit save to db_file â€” i.e. "is the in-memory tree out of
+   sync with the real file on disk". Used to guard auto-reload. */
+static int dirty_since_save=0;
 
 static void autosave_invoke(Node *pos){
 
@@ -54,6 +58,7 @@ static void* tree_changed_cmd (int argc, char **argv, void *data)
 		/* TODO: add increment handling, for "extreme changes" */
 	Node *pos = (Node *) data;
 	nodes_changed++;
+	dirty_since_save++;
 	if(autosave_threshold<=nodes_changed)
 		autosave_invoke(pos);
 	return pos;
@@ -69,6 +74,22 @@ static void* autosave_check_timeout (int argc, char **argv, void *data)
 		}		
 	}
 	return pos;
+}
+
+/* exposed so auto-reload can tell whether there are edits not yet written to
+   the real file before it re-reads from disk. */
+int autosave_dirty_since_save (void)
+{
+	return dirty_since_save;
+}
+
+/* called on an explicit save, and after a reload â€” the in-memory tree now
+   matches db_file. */
+void autosave_mark_saved (void)
+{
+	nodes_changed = 0;
+	dirty_since_save = 0;
+	autosave_timer = 0;
 }
 
 /*

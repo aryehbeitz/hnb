@@ -1,7 +1,7 @@
 /*
  * file.c -- utility functions for import/export hnb
  *
- * Copyright (C) 2001-2003 Øyvind Kolås <pippin@users.sourceforge.net>
+ * Copyright (C) 2001-2003 ï¿½yvind Kolï¿½s <pippin@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free
@@ -31,6 +31,8 @@
 #include "file.h"
 #include "prefs.h"
 #include "ui_cli.h"
+#include "autoreload.h"
+#include "autosave.h"
 
 void init_import (import_state_t * is, Node *node)
 {
@@ -176,6 +178,8 @@ static void* cmd_save (int argc,char **argv, void *data)
 			}
 			docmd (node_root (pos), buf);
 		}
+		autosave_mark_saved ();		/* in sync with db_file now */
+		autoreload_notify_saved ();	/* our own write â€” don't treat as external */
 	} else {
 		/* make tutorial users initial database, if initial database dont exist */
 	}
