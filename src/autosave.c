@@ -38,6 +38,8 @@ static int dirty_since_save=0;
 
 static void autosave_invoke(Node *pos){
 
+	if (prefs.readonly)			/* nothing to save in readonly mode */
+		return;
 	if (prefs.db_file[0]!= (char) 255) { /* magic value when tutorial is shown */
 		{
 			char buf[4096];

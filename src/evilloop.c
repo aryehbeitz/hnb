@@ -144,17 +144,17 @@ Node *evilloop (Node *pos)
 {
 	cli_outfun = set_status;
 
-	/* When auto-reload is on, give getch a 1s timeout so the loop keeps
-	   ticking while idle and can notice an externally changed file. */
-	if (prefs.autoreload)
-		timeout (1000);
-
 	while (!quit_hnb) {
 		Tbinding *binding;
 		int key;
 
 		autoreload_check (&pos);
 		ui_draw (pos, inputbuf, 0, 0);
+		/* Re-assert the getch timeout every iteration: a reload re-reads the
+		   file and can reset curses' input mode, which would otherwise leave
+		   getch blocking forever and stop the idle polling after one reload. */
+		if (prefs.autoreload)
+			timeout (1000);
 		key = ui_input ();
 		if (key == ERR)			/* idle timeout tick, no key pressed */
 			continue;

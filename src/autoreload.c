@@ -52,9 +52,18 @@ void autoreload_notify_saved (void)
 /* re-read db_file into a fresh tree; *posp gets the new position */
 static int do_reload (Node **posp)
 {
+	/* revert frees the current tree via the given node, so hand it the root
+	   (not wherever the cursor happens to be); then settle on the first node
+	   so the redraw starts cleanly from the top of the fresh tree. */
+	time_t loaded = db_mtime ();	/* mtime of the version we are about to read */
+	*posp = node_root (*posp);
 	*posp = docmd (*posp, "revert");
+	*posp = node_top (node_root (*posp));
 	autosave_mark_saved ();		/* fresh from disk == in sync */
-	last_mtime = db_mtime ();
+	/* Baseline is what we loaded — not the post-import time. If the file
+	   changed mid-reload, the next check sees a newer mtime and reloads again,
+	   so a rapid change is never absorbed/skipped. */
+	last_mtime = loaded;
 	reload_pending = 0;
 	cli_outfunf ("auto-reloaded %s\n", prefs.db_file);
 	return 1;
@@ -71,22 +80,26 @@ int autoreload_check (Node **posp)
 
 	m = db_mtime ();
 
+
 	if (!initialized) {			/* first call: just remember the baseline */
 		last_mtime = m;
 		initialized = 1;
 		return 0;
 	}
 
+	/* In readonly mode there are no unsaved edits to protect, so always
+	   reload; otherwise reload only when clean (defer while there are edits).
+	   The readonly bypass also avoids a stuck view: re-importing on reload can
+	   leave the dirty counter set, which would otherwise block every later
+	   reload of a file you can't save. */
 	if (m != last_mtime && m != 0) {	/* the file changed on disk */
-		/* Our own saves update last_mtime, so a change here is external.
-		   Reload only when there are no unsaved edits; otherwise defer. */
-		if (autosave_dirty_since_save () == 0)
+		if (prefs.readonly || autosave_dirty_since_save () == 0)
 			return do_reload (posp);
 		reload_pending = 1;
 	}
 
 	/* a deferred reload becomes safe once edits have been saved away */
-	if (reload_pending && autosave_dirty_since_save () == 0)
+	if (reload_pending && (prefs.readonly || autosave_dirty_since_save () == 0))
 		return do_reload (posp);
 
 	return 0;
