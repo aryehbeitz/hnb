@@ -1,7 +1,7 @@
 /*
  * hnb.c -- the main app, of hierarchical notebook, an personal database
  *
- * Copyright (C) 2001-2003 Øyvind Kolås <pippin@users.sourceforge.net>
+ * Copyright (C) 2001-2003 ï¿½yvind Kolï¿½s <pippin@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free
@@ -22,10 +22,10 @@
 	TODO: noder som forsvinner ved:
 		std. oppretting
 		redigering
-		gå til parent
+		gï¿½ til parent
 		
 		--
-		sannsynlig grunn: feil håndtering av temporary attributte
+		sannsynlig grunn: feil hï¿½ndtering av temporary attributte
 */
 
 #if HAVE_CONFIG_H
@@ -53,7 +53,7 @@ static void usage (const char *av0)
 			 "\nusage: %s [database] [options] [command [command] ..]\n",
 			 av0);
 	fprintf (stderr, "\n\
-Hierarchical NoteBook by Øyvind Kolås <pippin@users.sourceforge.net>\n\
+Hierarchical NoteBook by ï¿½yvind Kolï¿½s <pippin@users.sourceforge.net>\n\
 It is distributed under the GNU General Public License\n\
 \n\
 default database: '%s'\n", prefs.default_db_file);
@@ -63,6 +63,7 @@ Options:\n\
 \t-h --help     this message\n\
 \t-v --version  prints the version\n\
 \t-t --tutorial loads the tutorial instead of a database\n\
+\t-r --readonly open read-only (never writes; safe for the combined view)\n\
 \n\
 \t-a --ascii    load ascii ascii\n\
 \t   --hnb      load hnb DTD\n\
@@ -100,6 +101,7 @@ int main (int argc, char **argv)
 		char *dbfile;
 		char *rcfile;
 		char *cmd;
+		int readonly;
 	} cmdline = {
 		0,						/* version */
 			0,					/* usage */
@@ -107,7 +109,8 @@ int main (int argc, char **argv)
 			"",					/*format to load by default */
 			1,					/* ui */
 			0,					/* tutorial */
-	NULL, NULL, NULL};
+	NULL, NULL, NULL,
+			0};					/* readonly */
 	{							/*parse commandline */
 		for (argno = 1; argno < argc; argno++) {
 			if (!strcmp (argv[argno], "-h")
@@ -119,6 +122,9 @@ int main (int argc, char **argv)
 			} else if (!strcmp (argv[argno], "-t")
 					   || !strcmp (argv[argno], "--tutorial")) {
 				cmdline.tutorial = 1;
+			} else if (!strcmp (argv[argno], "-r")
+					   || !strcmp (argv[argno], "--readonly")) {
+				cmdline.readonly = 1;
 			} else if (!strcmp (argv[argno], "-a")
 					   || !strcmp (argv[argno], "--ascii")) {
 				strcpy(cmdline.format,"ascii");
@@ -213,6 +219,8 @@ int main (int argc, char **argv)
 	/* ovveride the prefs with commandline specified options */
 	if (cmdline.tutorial)
 		prefs.tutorial = 1;
+	if (cmdline.readonly)
+		prefs.readonly = 1;
 	if (cmdline.format[0] ) {	/* format specified */
 		strcpy(prefs.format, cmdline.format);
 	}
