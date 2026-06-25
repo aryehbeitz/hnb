@@ -1,7 +1,7 @@
 /*
  * file_html.c -- html export filter for hnb
  *
- * Copyright (C) 2001-2003 Øyvind Kolås <pippin@users.sourceforge.net>
+ * Copyright (C) 2001-2003 Ã˜yvind KolÃ¥s <pippin@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free
@@ -41,12 +41,12 @@ static char *htmlquote[]={
 	"\"", "&#39;",
 	"<", "&lt;",
 	">", "&gt;",
-	"ø", "&oslash;",
-	"Ø", "&Oslash;",
-	"å", "&aring;",
-	"Å", "&Aring;",
-	"æ", "&aelig;",
-	"Æ", "&AElig;",NULL
+	"Ã¸", "&oslash;",
+	"Ã˜", "&Oslash;",
+	"Ã¥", "&aring;",
+	"Ã…", "&Aring;",
+	"Ã¦", "&aelig;",
+	"Ã†", "&AElig;",NULL
 };
 
 /* *INDENT-ON* */

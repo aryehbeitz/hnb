@@ -1,7 +1,7 @@
 /*
  * file_ps.c -- postscript export filter for hnb
  *
- * Copyright (C) 2001-2003 Øyvind Kolås <pippin@users.sourceforge.net>
+ * Copyright (C) 2001-2003 Ã˜yvind KolÃ¥s <pippin@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free
@@ -41,12 +41,12 @@
 static char *psquote[]={
 	"(", "\\(",
 	")", "\\)",
-	"æ", "\\346",
-	"ø", "\\370",
-	"å", "\\345",
-	"Æ", "\\306",
-	"Ø", "\\330",
-	"Å", "\\305",NULL
+	"Ã¦", "\\346",
+	"Ã¸", "\\370",
+	"Ã¥", "\\345",
+	"Ã†", "\\306",
+	"Ã˜", "\\330",
+	"Ã…", "\\305",NULL
 };
 
 /* *INDENT-ON* */

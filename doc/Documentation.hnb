@@ -14,7 +14,7 @@
 	<node><data>Introducing hnb</data>
 		<node><data>hnb is an hierarchical notebook, that is an editor that focuses on editing and managing information in a hierarchical manner. This type of editor is also known as an outline editor.</data></node>
 		<node><data>hnb was written as a personal itch of the author, he knew no other such program and thought out how he wanted it to work. Some of the additional features in hnb have been inspired by other similar programs.</data></node>
-		<node><data>I the author, Øyvind Kolås &lt;pippin@users.sourceforge.net&gt; use hnb to maintain my contact list, my to-do lists, my calendar, writing documentation, reports, random ideas, and structuring various content.</data></node>
+		<node><data>I the author, Ã˜yvind KolÃ¥s &lt;pippin@users.sourceforge.net&gt; use hnb to maintain my contact list, my to-do lists, my calendar, writing documentation, reports, random ideas, and structuring various content.</data></node>
 	</node>
 	<node><data>Installing hnb</data>
 		<node><data>Unix</data>

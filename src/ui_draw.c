@@ -1,7 +1,7 @@
 /*
  * ui_draw.c -- drawing of a nodes and trees using curses
  *
- * Copyright (C) 2001-2003 Øyvind Kolås <pippin@users.sourceforge.net>
+ * Copyright (C) 2001-2003 Ã˜yvind KolÃ¥s <pippin@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free
@@ -294,7 +294,7 @@ static int draw_spacing (int line, int col, int width, Node *node,
 	return width;
 }
 
-static char bullet_leaf[4] = "  ·";
+static char bullet_leaf[4] = "  Â·";
 static char bullet_parent[4] = "  +";
 static char bullet_parent_expanded[4] = "  -";
 static char bullet_todo_leaf_undone[4] = "[ ]";

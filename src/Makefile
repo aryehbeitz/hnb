@@ -1,6 +1,6 @@
 LIBS=-lncursesw libcli/libcli.a
 CFLAGS ?= -Wall -pedantic
-override CFLAGS += -I.. -Ilibcli -DHAVE_CONFIG_H
+override CFLAGS += -fcommon -I.. -Ilibcli -DHAVE_CONFIG_H
 
 CFILES=$(wildcard *.c)
 # init_subsystems.c is generated during the build, so the wildcard above misses

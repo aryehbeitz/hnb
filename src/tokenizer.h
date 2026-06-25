@@ -15,7 +15,7 @@ extern char token_seperator;
 	tokenize will also return the token_seperator char in a string
 	if it is placed first or last in the input string.
 	
-	(c) Øyvind Kolås 2000
+	(c) Ã˜yvind KolÃ¥s 2000
 */
 
 char *tokenize (char *haystack);

@@ -1,7 +1,7 @@
 /*
  * hnb.c -- the main app, of hierarchical notebook, an personal database
  *
- * Copyright (C) 2001-2003 �yvind Kol�s <pippin@users.sourceforge.net>
+ * Copyright (C) 2001-2003 Øyvind Kolås <pippin@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free
@@ -22,10 +22,10 @@
 	TODO: noder som forsvinner ved:
 		std. oppretting
 		redigering
-		g� til parent
+		gå til parent
 		
 		--
-		sannsynlig grunn: feil h�ndtering av temporary attributte
+		sannsynlig grunn: feil håndtering av temporary attributte
 */
 
 #if HAVE_CONFIG_H
@@ -53,7 +53,7 @@ static void usage (const char *av0)
 			 "\nusage: %s [database] [options] [command [command] ..]\n",
 			 av0);
 	fprintf (stderr, "\n\
-Hierarchical NoteBook by �yvind Kol�s <pippin@users.sourceforge.net>\n\
+Hierarchical NoteBook by Øyvind Kolås <pippin@users.sourceforge.net>\n\
 It is distributed under the GNU General Public License\n\
 \n\
 default database: '%s'\n", prefs.default_db_file);

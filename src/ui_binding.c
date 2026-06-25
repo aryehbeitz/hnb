@@ -1,7 +1,7 @@
 /*
  * ui_binding.c -- management of keybindings
  *
- * Copyright (C) 2001,2001 Øyvind Kolås <pippin@users.sourceforge.net>
+ * Copyright (C) 2001,2001 Ã˜yvind KolÃ¥s <pippin@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free

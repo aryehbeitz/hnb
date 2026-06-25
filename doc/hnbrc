@@ -50,10 +50,10 @@
 			#
 			#bullet_parent          "  +"
 			#bullet_parent          "  *"
-			#bullet_parent          "  ·"
+			#bullet_parent          "  Â·"
 			#bullet_parent_expanded "  *"
 			#bullet_parent_expanded "  +"
-			#bullet_parent_expanded "  ·"
+			#bullet_parent_expanded "  Â·"
 			#bullet_leaf            "  -"
 			#bullet_leaf            "  *"
 		
@@ -148,7 +148,7 @@
 			#spell_command "ispell -x"
 			#spell_command "ispell -x -damerican"
 			#spell_command "ispell -x -dbritish"
-			#spell_command "ispell -x -dbokmål"
+			#spell_command "ispell -x -dbokmÃ¥l"
 			#spell_command "ispell -x -dnynorsk"
 		spell_command "ispell -x"
 		
@@ -637,14 +637,14 @@
 		bind any "unbound"
 		
 	context user_ispell
-		helptext "Language for ispell: | |F1| Br.english  |F2| Am.english  |F3| Norwegian bokmål  |F4| Norwegian nynorsk"
+		helptext "Language for ispell: | |F1| Br.english  |F2| Am.english  |F3| Norwegian bokmÃ¥l  |F4| Norwegian nynorsk"
 		bind f1  'spell_command "ispell -x -damerican"'
 		bind ..  'context main'
 		
 		bind f2  'spell_command "ispell -x -dbritish"'
 		bind ..  'context main'
 		
-		bind f3  'spell_command "ispell -x -dbokmål"'
+		bind f3  'spell_command "ispell -x -dbokmÃ¥l"'
 		bind ..  'context main'
 		
 		bind f4  'spell_command "ispell -x -dnynorsk"'
@@ -741,7 +741,7 @@
 	context main
 	macro define m_about
 		status "hnb - hierarchical notebook   http://hnb.sourceforge.net/"
-		status "(c) Øyvind Kolås 2001-2003    pippin@users.sourceforge.net"
+		status "(c) Ã˜yvind KolÃ¥s 2001-2003    pippin@users.sourceforge.net"
 		end
 	
 	macro m_about
