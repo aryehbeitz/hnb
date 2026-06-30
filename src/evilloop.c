@@ -33,6 +33,7 @@
 #include "cli.h"
 #include "evilloop.h"
 #include "autoreload.h"
+#include "autosave.h"
 
 #include "util_string.h"
 
@@ -140,6 +141,18 @@ static void* cmd_savequit(int argc,char **argv,void *data){
 	return pos;
 }
 
+/* menu "exit": quit straight away if nothing's unsaved, else show the
+   save-on-exit dialog. Lets the menu skip the prompt when there's nothing
+   at risk. */
+static void* cmd_menuquit(int argc,char **argv,void *data){
+	Node *pos=(Node *)data;
+	if(autosave_dirty_since_save()==0)
+		quit_hnb=1;					/* clean — nothing to save, just go */
+	else
+		pos=docmd(pos,"context quitsave");	/* unsaved edits — ask first */
+	return pos;
+}
+
 /*
 !init_quit();
 */
@@ -150,6 +163,8 @@ void init_quit(){
 	cli_add_help("q","quits hnb, no questions asked");
 	cli_add_command("savequit",cmd_savequit,"");
 	cli_add_help("savequit","save then quit, without the save-on-exit prompt");
+	cli_add_command("menuquit",cmd_menuquit,"");
+	cli_add_help("menuquit","quit; prompt to save only if there are unsaved changes");
 }
 
 Node *evilloop (Node *pos)

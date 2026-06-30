@@ -46,6 +46,7 @@
 #include "prefs.h"
 #include "file.h"
 #include "evilloop.h"
+#include "autosave.h"
 
 static void usage (const char *av0)
 {
@@ -348,6 +349,10 @@ o)pen read_only\n\
 		pos = docmd (pos, "status 'navigate the documentation with your cursor keys'");
 	}
 
+	/* The just-loaded tree matches the file on disk; importing it bumped the
+	   change counter, so reset it. Without this a freshly-opened notebook
+	   looks unsaved (blocks auto-reload, makes "quit" prompt needlessly). */
+	autosave_mark_saved ();
 
 	switch (cmdline.ui) {
 		case 1:
