@@ -80,6 +80,7 @@ Options:\n\
 }
 
 void init_subsystems ();
+extern int save_on_exit;	/* set by the savequit command (evilloop.c) */
 
 
 int main (int argc, char **argv)
@@ -351,6 +352,8 @@ o)pen read_only\n\
 	switch (cmdline.ui) {
 		case 1:
 			pos = evilloop (pos);
+			if (save_on_exit && !prefs.readonly && prefs.db_file[0] != (char) 255)
+				pos = docmd (node_root (pos), "save");
 			ui_end ();
 			break;
 		case 0:

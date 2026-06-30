@@ -123,10 +123,20 @@ static char *keep_inputbuf[]={
 };
 
 int quit_hnb=0;
+int save_on_exit=0;		/* set by savequit; main() saves after the loop exits */
 
 static void* cmd_quit(int argc,char **argv,void *data){
 	Node *pos=(Node *)data;
 	quit_hnb=1;
+	return pos;
+}
+
+/* save (unless readonly), then quit — no "save on exit?" prompt, no data loss */
+static void* cmd_savequit(int argc,char **argv,void *data){
+	Node *pos=(Node *)data;
+	quit_hnb=1;
+	save_on_exit=1;				/* main() does the save after the loop exits */
+	inputbuf[0]=0;				/* drop pending input so the loop exits cleanly */
 	return pos;
 }
 
@@ -138,6 +148,8 @@ void init_quit(){
 	cli_add_help("quit","quits hnb, no questions asked");
 	cli_add_command("q",cmd_quit,"");
 	cli_add_help("q","quits hnb, no questions asked");
+	cli_add_command("savequit",cmd_savequit,"");
+	cli_add_help("savequit","save then quit, without the save-on-exit prompt");
 }
 
 Node *evilloop (Node *pos)
